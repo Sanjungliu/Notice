@@ -103,6 +103,14 @@ Notice is an application to reporting the COVID-19 cases in Indonesia.
         - See Map of COVID-19 cases in Indonesia
         - See Profile
         - Logout
+  
+  - ("/statistic") 
+    Statistic page
+    In this page, Admin can see all COVID-19 cases data (combined from User's created data and 3rd API data) in table layout consists of 34 region in Indonesia
+
+  - ("/map)
+    Map page
+    In this page, Admin can see all COVID-19 cases data (combined from User's created data and 3rd API data) in map layout, with colored marker as a COVID-19 case    severity.
     
 
 # Additional Information
