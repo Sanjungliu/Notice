@@ -1,21 +1,13 @@
 import {
   IonButton,
   IonContent,
-  IonHeader,
   IonImg,
-  IonInput,
   IonItem,
-  IonLabel,
   IonPage,
-  IonSelect,
-  IonSelectOption,
   IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 
-// com.liu.notice
-import firebase from "firebase/app";
 import { firestore } from "../../firebase";
 import "firebase/firestore";
 import "firebase/auth";
@@ -29,16 +21,20 @@ import { RootState } from "../../store";
 import "./Cases-Created.css";
 import { setCase } from "../../store/action";
 
+import back from "../../asset/back.png";
+
 const CasesCreated: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
   let [cases, setCases] = useState<any[]>([]);
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // fetch cases data created by user before render the component
   useEffect(() => {
     getCasesData();
   }, []);
 
+  // fetch cases data created by user logged in from firestore database
   async function getCasesData() {
     const casesRef = firestore.collection("cases");
     const casesData = await casesRef
@@ -46,17 +42,19 @@ const CasesCreated: React.FC = () => {
       .get();
     if (casesData.empty) {
       swal.fire(`Please Input Case First`);
-      return;
+    } else {
+      const casesArray = casesData.docs.map((doc) => doc.data());
+      setCases(casesArray);
     }
-    const casesArray = casesData.docs.map((doc) => doc.data());
-    setCases(casesArray);
   }
 
+  // handle redirect to update page and send data to redux to showed in component
   function handleUpdate(data: any) {
     dispatch(setCase(data));
     history.push("/update-case");
   }
 
+  // delete case from firestore database
   function handleDelete(data: any) {
     const caseRef = firestore.collection("cases");
     caseRef.doc(data.name).delete();
@@ -66,47 +64,59 @@ const CasesCreated: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
+        <img
+          onClick={() => history.push("/dashboard-user")}
+          className="back-button"
+          src={back}
+        />
         <section className="cases-created-section">
           <IonItem lines="none">
-            <IonTitle className="dashboard-user-title">
-              COVID 19 Cases in Your Region
-            </IonTitle>
+            <IonTitle className="title">COVID 19 Cases</IonTitle>
           </IonItem>
+          <IonItem lines="none">
+            <IonTitle className="subtitle">You Reported</IonTitle>
+          </IonItem>
+
           {cases.length === 0 ? (
-            <IonText>You don't input any cases yet</IonText>
+            <IonItem lines="none">
+              <IonText className="info-text">
+                You haven't input any cases yet
+              </IonText>
+            </IonItem>
           ) : (
             cases.map((el, i) => {
               return (
-                <div key={i}>
-                  <IonImg src={el.photoURL}></IonImg>
-                  <IonItem lines="none">
-                    <IonText>Name: {el.name}</IonText>
+                <div className="case-card" key={i}>
+                  <IonImg className="photo-case" src={el.photoURL}></IonImg>
+                  <IonItem className="line-1" lines="none">
+                    <IonText className="name-data">{el.name}</IonText>
+                    <IonText className="age-data">{el.age} years</IonText>
                   </IonItem>
+
                   <IonItem lines="none">
-                    <IonText>Age: {el.age}</IonText>
+                    <IonText className="gender-data">{el.gender}</IonText>
+                    <IonText className="region-data">{el.region}</IonText>
                   </IonItem>
+
                   <IonItem lines="none">
-                    <IonText>Address: {el.address}</IonText>
+                    <IonText className="address-data">{el.address}</IonText>
                   </IonItem>
-                  <IonItem lines="none">
-                    <IonText>Gender: {el.gender}</IonText>
-                  </IonItem>
-                  <IonItem lines="none">
-                    <IonText>Region: {el.region}</IonText>
-                  </IonItem>
+
                   <IonItem lines="none">
                     <IonButton
+                      shape="round"
                       onClick={() => handleUpdate(el)}
-                      className="ion-margin"
+                      className="update-case-button"
                     >
                       Update Case
                     </IonButton>
                   </IonItem>
                   <IonItem lines="none">
                     <IonButton
+                      shape="round"
                       onClick={() => handleDelete(el)}
                       color="danger"
-                      className="ion-margin"
+                      className="delete-case-button"
                     >
                       Delete Case
                     </IonButton>
@@ -115,15 +125,6 @@ const CasesCreated: React.FC = () => {
               );
             })
           )}
-
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/dashboard-user")}
-              className="ion-margin"
-            >
-              Back to Dashboard
-            </IonButton>
-          </IonItem>
         </section>
       </IonContent>
     </IonPage>

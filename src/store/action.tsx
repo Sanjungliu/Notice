@@ -1,6 +1,7 @@
 import { firestore } from "../firebase";
 const schedule = require("node-schedule");
 
+// send User in redux
 export function setUser(input: any) {
   return {
     type: "SET_USER",
@@ -8,6 +9,7 @@ export function setUser(input: any) {
   };
 }
 
+// send firebase authentication function to redux
 export function setConfirmationResult(input: any) {
   return {
     type: "SET_CONFIRMATION_RESULT",
@@ -15,6 +17,7 @@ export function setConfirmationResult(input: any) {
   };
 }
 
+// send case data to redux to used in update case component
 export function setCase(input: any) {
   return {
     type: "SET_CASE",
@@ -22,6 +25,7 @@ export function setCase(input: any) {
   };
 }
 
+// set flag to avoid rendering recaptcha if recaptcha already rendered
 export function setFlag(input: any) {
   return {
     type: "SET_FLAG",
@@ -29,6 +33,7 @@ export function setFlag(input: any) {
   };
 }
 
+// send API data to redux
 export function setAPI(input: any) {
   return {
     type: "SET_API",
@@ -36,6 +41,7 @@ export function setAPI(input: any) {
   };
 }
 
+// fetch API data from firstore database
 export function fetchAPI() {
   return async (dispatch: any) => {
     const covidAPIRef = firestore.collection("covid-API");
@@ -46,6 +52,7 @@ export function fetchAPI() {
   };
 }
 
+// fetch cases data created by user from firestore database
 export function fetchCases() {
   return async (dispatch: any) => {
     const casesRef = firestore.collection("cases");
@@ -55,6 +62,7 @@ export function fetchCases() {
   };
 }
 
+// to fetch updated 3rd API data everyday at 23.59 PM
 export function backgroundJob() {
   const job = schedule.scheduleJob("* 59 23 * *", async function () {
     const response = await fetch(

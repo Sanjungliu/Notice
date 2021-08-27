@@ -1,0 +1,19 @@
+.statistic-title {
+  margin-bottom: 0px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.statistic-label-no,
+.statistic-label-provinsi,
+.statistic-label-positif,
+.statistic-label-sembuh,
+.statistic-label-meninggal {
+  color: black !important;
+  font-weight: 600;
+  width: 3rem;
+}
+
+ion-content .table {
+  margin-bottom: 3rem !important;
+}

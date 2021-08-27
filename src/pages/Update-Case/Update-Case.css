@@ -1,0 +1,23 @@
+.update {
+  font-weight: 600;
+  border-bottom: solid;
+  border-width: 2px;
+  border-color: rgb(212, 212, 212);
+  width: 80%;
+  margin-left: 2rem;
+}
+
+.update-label {
+  margin-left: 2rem !important;
+  color: rgb(231, 231, 231);
+}
+
+.update-case-button {
+  margin: auto;
+  width: 92%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 120%;
+}

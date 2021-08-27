@@ -2,6 +2,74 @@
   margin-top: 3rem;
 }
 
+:placeholder-shown {
+  margin-left: 1.5rem;
+}
+
 .register-title {
   font-size: xx-large;
+  margin-top: 5rem;
+  margin-bottom: 1.5rem;
+}
+
+.register-button {
+  margin: auto;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 120%;
+}
+
+.isAdmin-input,
+.region-input {
+  margin-left: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  width: 100%;
+  background-color: white;
+}
+
+.email-input,
+.username-input,
+.phone-number-input {
+  margin-left: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  width: 80%;
+  background-color: white;
+}
+
+.country-code-register {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: large;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  height: 2.5rem;
+  width: 3rem;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  background-color: white;
+}
+
+.redirect-register {
+  margin: auto;
+  color: rgb(143, 143, 143);
+}
+
+.gif {
+  display: flex;
+}
+
+.love-gif {
+  margin: auto;
+  width: 50%;
 }

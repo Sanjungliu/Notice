@@ -1,0 +1,45 @@
+.update-profile-title {
+  font-size: 30px;
+  margin-top: 1rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.update-profile {
+  font-weight: 600;
+  margin-left: 1rem !important;
+  margin-top: 0.5rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  width: 93%;
+  background-color: white;
+}
+
+.update-label {
+  margin-top: 0px !important;
+  margin-left: 1rem !important;
+}
+
+.div-pic-update {
+  display: flex;
+  margin-bottom: 0px !important;
+}
+
+.pic-update {
+  margin: auto;
+  border-radius: 5rem;
+  width: 8rem;
+  margin-bottom: 0px !important;
+}
+
+.save-update-button {
+  margin: auto;
+  width: 92%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 120%;
+}

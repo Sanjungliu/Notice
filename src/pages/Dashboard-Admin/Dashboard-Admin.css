@@ -1,0 +1,16 @@
+.dashboard-admin-title {
+  font-size: 30px;
+  text-align: center;
+}
+
+.profile-button,
+.statistic-button,
+.map-button {
+  margin: auto;
+  margin-top: 1.5rem;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  font-size: 120%;
+}

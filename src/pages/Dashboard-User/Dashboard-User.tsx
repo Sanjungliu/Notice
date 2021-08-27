@@ -1,43 +1,29 @@
 import {
   IonButton,
   IonContent,
-  IonHeader,
-  IonInput,
   IonItem,
-  IonLabel,
   IonPage,
-  IonSelect,
-  IonSelectOption,
-  IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 
-// com.liu.notice
 import firebase from "../../firebase";
-import { firestore } from "../../firebase";
 import "firebase/firestore";
 import "firebase/auth";
 
-import { useState } from "react";
-import swal from "sweetalert2";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 import "./Dashboard-User.css";
 import { setUser } from "../../store/action";
+import gif from "../../asset/dashboard.gif";
 
 const DashboardUser: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [address, setAddress] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [gender, setGender] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // handle logout user and redirect to login page
   function logout() {
     firebase
       .auth()
@@ -54,43 +40,54 @@ const DashboardUser: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <section className="dashboard-user-section">
-          <IonItem lines="none">
-            <IonTitle className="dashboard-user-title">
-              Welcome, {user.username}
-            </IonTitle>
-          </IonItem>
+        <IonItem lines="none">
+          <IonButton
+            shape="round"
+            color="danger"
+            onClick={logout}
+            className="logout"
+          >
+            Logout
+          </IonButton>
+        </IonItem>
+        <IonItem lines="none">
+          <IonTitle className="dashboard-user-title">
+            Welcome, {user.username}
+          </IonTitle>
+        </IonItem>
+        <div className="dashboard-gif">
+          <img src={gif} alt="" className="dashboard" />
+        </div>
 
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/create-new-case")}
-              className="ion-margin"
-            >
-              Add New Case
-            </IonButton>
-          </IonItem>
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/profile")}
-              className="ion-margin"
-            >
-              My Profile
-            </IonButton>
-          </IonItem>
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/cases-created")}
-              className="ion-margin"
-            >
-              See Cases
-            </IonButton>
-          </IonItem>
-          <IonItem lines="none">
-            <IonButton color="danger" onClick={logout} className="ion-margin">
-              Logout
-            </IonButton>
-          </IonItem>
-        </section>
+        <IonItem lines="none">
+          <IonButton
+            shape="round"
+            color="success"
+            onClick={() => history.push("/create-new-case")}
+            className="add-new-case"
+          >
+            Add New Case
+          </IonButton>
+        </IonItem>
+        <IonItem lines="none">
+          <IonButton
+            shape="round"
+            color="tertiary"
+            onClick={() => history.push("/profile")}
+            className="my-profile"
+          >
+            My Profile
+          </IonButton>
+        </IonItem>
+        <IonItem lines="none">
+          <IonButton
+            shape="round"
+            onClick={() => history.push("/cases-created")}
+            className="see-cases"
+          >
+            See Cases
+          </IonButton>
+        </IonItem>
       </IonContent>
     </IonPage>
   );

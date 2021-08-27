@@ -1,0 +1,126 @@
+.info-text {
+  margin: auto;
+  margin-top: 10rem;
+}
+
+.dashboard-user-title {
+  margin-left: 1px;
+}
+
+.title {
+  margin-top: 1rem;
+  margin-bottom: 0px;
+  text-align: center;
+  font-size: 30px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 0px;
+}
+
+.test {
+  margin: auto;
+}
+
+.dashboard-button {
+  margin: auto;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  font-size: 120%;
+}
+
+.photo-case {
+  margin: auto;
+  max-width: 70%;
+  margin-top: 1rem;
+}
+
+.back-button {
+  width: 3rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.case-card {
+  border-radius: 2rem;
+  width: 90%;
+  height: 100%;
+  margin: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  margin-bottom: 1.5rem;
+}
+
+.case-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.name-data {
+  margin: 0.5rem;
+  background-color: wheat;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  width: 8rem;
+  text-align: center;
+  margin-left: 1.5rem;
+}
+
+.age-data {
+  margin: 0.5rem;
+  margin-left: 1rem;
+  background-color: wheat;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  width: 8rem;
+  text-align: center;
+}
+
+.gender-data {
+  margin: 0.5rem;
+  background-color: wheat;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  width: 8rem;
+  margin-left: 1.5rem;
+  text-align: center;
+}
+
+.region-data {
+  margin: 0.5rem;
+  margin-left: 1rem;
+  background-color: wheat;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  width: 8rem;
+  text-align: center;
+}
+
+.address-data {
+  margin: auto;
+  background-color: wheat;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  margin-left: 1.5rem;
+  width: 17.5rem;
+  text-align: center;
+}
+
+.update-case-button {
+  height: 2.5rem;
+  width: 60%;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.delete-case-button {
+  height: 2.5rem;
+  width: 10rem;
+  margin: auto;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}

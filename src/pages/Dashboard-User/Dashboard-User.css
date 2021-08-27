@@ -1,0 +1,57 @@
+.dashboard-user-title {
+  font-size: xx-large;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.add-new-case {
+  margin: auto;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  font-size: 120%;
+}
+
+.my-profile {
+  margin: auto;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 120%;
+  margin-top: 1.5rem;
+}
+
+.see-cases {
+  margin: auto;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 120%;
+  margin-top: 1.5rem;
+}
+
+.logout {
+  margin-left: 19rem;
+  width: 20%;
+  border-radius: 2rem;
+  height: 2rem;
+  margin-top: 1rem;
+  font-size: 90%;
+}
+
+.dashboard-gif {
+  display: flex;
+}
+
+.dashboard {
+  width: 75%;
+  max-height: 18rem;
+  margin: auto;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}

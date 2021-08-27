@@ -48,6 +48,7 @@ declare global {
 
 const App: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
+  const flag = useSelector((state: RootState) => state.flag);
 
   return (
     <IonApp>
@@ -60,7 +61,7 @@ const App: React.FC = () => {
             <Login />
           </Route>
           <Route exact path="/OTP">
-            <OTP />
+            {flag ? <OTP /> : <Redirect to="/login" />}
           </Route>
           <Route exact path="/dashboard">
             {user && user.isAdmin == "true" ? (
@@ -98,8 +99,7 @@ const App: React.FC = () => {
             {user ? <Statistic /> : <Redirect to="/login" />}
           </Route>
           <Route exact path="/map">
-            {/* {user ? <Map /> : <Redirect to="/login" />} */}
-            <Map />
+            {user ? <Map /> : <Redirect to="/login" />}
           </Route>
           <Route exact path="/">
             <Redirect to="/login" />

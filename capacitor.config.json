@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "Notice",
-	"webDir": "build",
-	"bundledWebRuntime": false
+  "appId": "com.liu.notice",
+  "appName": "Notice",
+  "webDir": "build",
+  "bundledWebRuntime": false
 }

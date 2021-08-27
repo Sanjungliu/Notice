@@ -1,34 +1,29 @@
 import {
   IonButton,
   IonContent,
-  IonHeader,
-  IonImg,
   IonInput,
   IonItem,
   IonLabel,
   IonPage,
   IonSelect,
   IonSelectOption,
-  IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 
-// com.liu.notice
 import firebase from "firebase/app";
 import { firestore } from "../../firebase";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/storage";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import swal from "sweetalert2";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 import "./Update-Case.css";
-import { setCase } from "../../store/action";
+import back from "../../asset/back.png";
 
 const UpdateCase: React.FC = () => {
   const caseData = useSelector((state: RootState) => state.case);
@@ -41,6 +36,7 @@ const UpdateCase: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // handle file photo changed
   function handleChangePhoto(file: any) {
     if (file === undefined) {
     } else if (
@@ -55,6 +51,7 @@ const UpdateCase: React.FC = () => {
     }
   }
 
+  // upload photo to firebase storage
   function uploadPhoto(image: any) {
     const storageRef = firebase.storage().ref(`photos/${image.name}`);
     let uploadTask = storageRef.put(image);
@@ -64,6 +61,7 @@ const UpdateCase: React.FC = () => {
     });
   }
 
+  // verify input and update data from firestore database
   function updateCase() {
     if (!name) {
       swal.fire(`name required`);
@@ -71,8 +69,6 @@ const UpdateCase: React.FC = () => {
       swal.fire(`age required`);
     } else if (!address) {
       swal.fire(`address required`);
-    } else if (!gender) {
-      swal.fire(`gender required`);
     } else {
       const caseRef = firestore.collection("cases");
       caseRef.doc(caseData.name).delete();
@@ -82,6 +78,8 @@ const UpdateCase: React.FC = () => {
       swal.fire(`succeed`, `Update has been saved`, `success`);
       history.push("/cases-created");
     }
+
+    // clear all input after any action
     (document.getElementById("name-input") as HTMLInputElement).value = "";
     (document.getElementById("age-input") as HTMLInputElement).value = "";
     (document.getElementById("address-input") as HTMLInputElement).value = "";
@@ -93,86 +91,98 @@ const UpdateCase: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <section className="dashboard-user-section">
-          <IonItem lines="none">
-            <IonTitle className="dashboard-user-title">
-              Update Case Data
-            </IonTitle>
-          </IonItem>
+        <img
+          onClick={() => history.push("/cases-created")}
+          className="back-button"
+          src={back}
+        />
+        <IonItem lines="none">
+          <IonTitle className="dashboard-user-title">Update Case Data</IonTitle>
+        </IonItem>
 
-          <IonItem lines="none">
-            <IonInput
-              value={name}
-              id="name-input"
-              type="text"
-              onIonInput={(e: any) => setName(e.target.value)}
-              className="ion-margin"
-              placeholder="Name"
-            ></IonInput>
-          </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="update-label" position="stacked">
+            Name
+          </IonLabel>
+          <IonInput
+            value={name}
+            id="name-input"
+            type="text"
+            onIonInput={(e: any) => setName(e.target.value)}
+            className="update"
+            placeholder="Name"
+          ></IonInput>
+        </IonItem>
 
-          <IonItem lines="none">
-            <IonInput
-              value={age}
-              id="age-input"
-              type="number"
-              onIonInput={(e: any) => setAge(e.target.value)}
-              className="ion-margin"
-              placeholder="Age"
-            ></IonInput>
-          </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="update-label" position="stacked">
+            Age
+          </IonLabel>
+          <IonInput
+            value={age}
+            id="age-input"
+            type="number"
+            onIonInput={(e: any) => setAge(e.target.value)}
+            className="update"
+            placeholder="Age"
+          ></IonInput>
+        </IonItem>
 
-          <IonItem lines="none">
-            <IonInput
-              value={address}
-              id="address-input"
-              type="text"
-              onIonInput={(e: any) => setAddress(e.target.value)}
-              className="ion-margin"
-              placeholder="Address"
-            ></IonInput>
-          </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="update-label" position="stacked">
+            Address
+          </IonLabel>
+          <IonInput
+            value={address}
+            id="address-input"
+            type="text"
+            onIonInput={(e: any) => setAddress(e.target.value)}
+            className="update"
+            placeholder="Address"
+          ></IonInput>
+        </IonItem>
 
-          <IonItem lines="none">
-            <IonSelect
-              value={gender}
-              id="isAdmin-input"
-              onIonChange={(e: any) => setGender(e.detail.value)}
-              className="ion-margin"
-              placeholder="Gender"
-            >
-              <IonSelectOption value="male">Male</IonSelectOption>
-              <IonSelectOption value="female">Female</IonSelectOption>
-            </IonSelect>
-          </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="update-label" position="stacked">
+            Gender
+          </IonLabel>
+          <IonSelect
+            value={gender}
+            id="isAdmin-input"
+            onIonChange={(e: any) => setGender(e.detail.value)}
+            className="update"
+            placeholder="Gender"
+          >
+            <IonSelectOption value="male">Male</IonSelectOption>
+            <IonSelectOption value="female">Female</IonSelectOption>
+          </IonSelect>
+        </IonItem>
 
-          <IonItem lines="none">
+        <IonItem lines="none">
+          <label htmlFor="image-input" className="custom-file-upload">
             <input
               id="image-input"
               onChange={(e: any) => {
                 handleChangePhoto(e.target.files[0]);
               }}
-              className="ion-margin"
+              className="create-photo"
               type="file"
               placeholder="Photo"
             />
-            <img src={caseData.photoURL} id="chosen-image" />
-          </IonItem>
+            PHOTO
+          </label>
+          <img id="chosen-image" />
+        </IonItem>
 
-          <IonItem lines="none">
-            <IonButton onClick={updateCase} className="ion-margin">
-              Save Update
-            </IonButton>
-          </IonItem>
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/cases-created")}
-              className="ion-margin"
-            >
-              Back to Cases Data
-            </IonButton>
-          </IonItem>
-        </section>
+        <IonItem lines="none">
+          <IonButton
+            shape="round"
+            onClick={updateCase}
+            className="update-case-button"
+          >
+            Save Update
+          </IonButton>
+        </IonItem>
       </IonContent>
     </IonPage>
   );

@@ -1,82 +1,81 @@
 import {
   IonButton,
   IonContent,
-  IonHeader,
-  IonInput,
   IonItem,
   IonLabel,
   IonPage,
-  IonSelect,
-  IonSelectOption,
   IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 
-// com.liu.notice
-import firebase from "firebase/app";
-import { firestore } from "../../firebase";
-import "firebase/firestore";
-import "firebase/auth";
-
-import { useState } from "react";
-import swal from "sweetalert2";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 import "./Profile.css";
+import back from "../../asset/back.png";
+import pic from "../../asset/62.jpg";
 
 const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.user);
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [address, setAddress] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [gender, setGender] = useState("");
   const history = useHistory();
 
   return (
     <IonPage>
       <IonContent fullscreen>
-        <section className="dashboard">
-          <IonItem lines="none">
-            <IonTitle className="dashboard-title">Profile Page</IonTitle>
-          </IonItem>
+        <img
+          onClick={() => history.push("/dashboard")}
+          className="back-button"
+          src={back}
+        />
+        <IonItem lines="none">
+          <IonTitle className="profile-title">Profile Page</IonTitle>
+        </IonItem>
 
-          <IonItem className="ion-margin" lines="none">
-            <IonText>Username: {user.username}</IonText>
-          </IonItem>
-          <IonItem className="ion-margin" lines="none">
-            <IonText>Email: {user.email}</IonText>
-          </IonItem>
-          <IonItem className="ion-margin" lines="none">
-            <IonText>Phone Number: {user.phoneNumber}</IonText>
-          </IonItem>
-          <IonItem className="ion-margin" lines="none">
-            <IonText>Admin: {user.isAdmin}</IonText>
-          </IonItem>
-          <IonItem className="ion-margin" lines="none">
-            <IonText>Region: {user.region}</IonText>
-          </IonItem>
+        <div className="div-pic">
+          <img className="pic" src={pic} />
+        </div>
 
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/update-profile")}
-              className="ion-margin"
-            >
-              Edit Profile
-            </IonButton>
-          </IonItem>
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/dashboard")}
-              className="ion-margin"
-            >
-              Back to Dashboard
-            </IonButton>
-          </IonItem>
-        </section>
+        <IonItem lines="none">
+          <IonLabel color="dark" className="label" position="stacked">
+            Username
+          </IonLabel>
+          <IonText className="profile">{user.username}</IonText>
+        </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="label" position="stacked">
+            Email
+          </IonLabel>
+          <IonText className="profile">{user.email}</IonText>
+        </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="label" position="stacked">
+            Phone Number
+          </IonLabel>
+          <IonText className="profile">{user.phoneNumber}</IonText>
+        </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="label" position="stacked">
+            Admin
+          </IonLabel>
+          <IonText className="profile">{user.isAdmin}</IonText>
+        </IonItem>
+        <IonItem lines="none">
+          <IonLabel className="label" position="stacked">
+            Region
+          </IonLabel>
+          <IonText className="profile">{user.region}</IonText>
+        </IonItem>
+
+        <IonItem lines="none">
+          <IonButton
+            shape="round"
+            onClick={() => history.push("/update-profile")}
+            className="update-profile-button"
+          >
+            Edit Profile
+          </IonButton>
+        </IonItem>
       </IonContent>
     </IonPage>
   );

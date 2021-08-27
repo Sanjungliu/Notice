@@ -1,14 +1,4 @@
-import {
-  IonButton,
-  IonContent,
-  IonItem,
-  IonPage,
-  IonTitle,
-} from "@ionic/react";
-
-// com.liu.notice
-import "firebase/firestore";
-import "firebase/auth";
+import { IonContent, IonItem, IonPage, IonTitle } from "@ionic/react";
 
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
@@ -18,28 +8,23 @@ import { RootState } from "../../store";
 import "./Map.css";
 import { fetchAPI, fetchCases } from "../../store/action";
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
+import L from "leaflet";
+
+import back from "../../asset/back.png";
 
 const Map: React.FC = () => {
-  const user = useSelector((state: RootState) => state.user);
   const cases = useSelector((state: RootState) => state.case);
   const dataAPI = useSelector((state: RootState) => state.API);
   const history = useHistory();
   const dispatch = useDispatch();
-  let result = null;
 
+  // fetch cases data created by all user and API data from COVID-19 3rd API before render the component
   useEffect(() => {
-    getData();
     dispatch(fetchAPI());
     dispatch(fetchCases());
   }, []);
 
-  async function getData() {
-    const response = await fetch(
-      "https://services5.arcgis.com/VS6HdKS0VfIhv8Ct/arcgis/rest/services/COVID19_Indonesia_per_Provinsi/FeatureServer/0/query?where=1%3D1&outFields=Provinsi,Kasus_Posi,Kasus_Semb,Kasus_Meni&outSR=4326&f=json"
-    );
-    result = await response.json();
-  }
-
+  // combine cases data created by all user and COVID data from 3rd API
   useEffect(() => {
     for (let i = 0; i < dataAPI.length; i++) {
       for (let j = 0; j < cases.length; j++) {
@@ -50,44 +35,92 @@ const Map: React.FC = () => {
     }
   }, [dataAPI]);
 
+  // icon color to used in map
+  const redIcon = L.icon({
+    iconUrl: "https://image.flaticon.com/icons/png/512/684/684908.png",
+    iconSize: [40, 40],
+  });
+
+  const yellowIcon = L.icon({
+    iconUrl: "https://image.flaticon.com/icons/png/512/727/727606.png",
+    iconSize: [40, 40],
+  });
+
+  const greenIcon = L.icon({
+    iconUrl:
+      "https://www.seekpng.com/png/full/19-190761_simple-location-map-pin-icon-location-pin-green.png",
+    iconSize: [40, 40],
+  });
+
   return (
     <IonPage>
       <IonContent fullscreen>
-        <section className="dashboard-admin-section">
-          <IonItem lines="none">
-            <IonTitle className="dashboard-admin-title">
-              COVID 19 Map Data
-            </IonTitle>
-          </IonItem>
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/dashboard-admin")}
-              className="ion-margin"
-            >
-              Back to Dashboard
-            </IonButton>
-          </IonItem>
+        <img
+          onClick={() => history.push("/dashboard")}
+          className="back-button"
+          src={back}
+        />
+        <IonItem lines="none">
+          <IonTitle className="dashboard-admin-title">
+            COVID 19 Map Data
+          </IonTitle>
+        </IonItem>
 
-          <div id="mapid">
-            <MapContainer
-              center={[-2.548926, 118.0148634]}
-              zoom={4}
-              scrollWheelZoom={true}
-            >
-              <TileLayer
-                attribution=""
-                url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGl1LWNhbmp1bmciLCJhIjoiY2tzZW81Z2J0MGwxbTJ2bnVpaGZicmEzMyJ9.RTGKt28NuDI1Qals7HgJug"
-                id="mapbox/light-v9"
-              />
-              <Marker position={[-2.548926, 118.0148634]}>
-                <Popup>
-                  A pretty CSS3 popup {result}. <br /> Easily customizable.
-                </Popup>
-              </Marker>
-            </MapContainer>
-          </div>
-          <div id="map"></div>
-        </section>
+        <MapContainer
+          center={[-2.548926, 118.0148634]}
+          zoom={4}
+          scrollWheelZoom={true}
+        >
+          <TileLayer
+            attribution=""
+            url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibGl1LWNhbmp1bmciLCJhIjoiY2tzZW81Z2J0MGwxbTJ2bnVpaGZicmEzMyJ9.RTGKt28NuDI1Qals7HgJug"
+            id="mapbox/light-v9"
+          />
+          {dataAPI.map((el: any, i: any) => {
+            return {
+              ...(el.attributes.Kasus_Posi > 100000 ? (
+                <Marker
+                  key={i}
+                  position={[el.geometry.y, el.geometry.x]}
+                  icon={redIcon}
+                >
+                  <Popup>
+                    Provinsi: {el.attributes.Provinsi}. <br />
+                    Positif: {el.attributes.Kasus_Posi} <br />
+                    Sembuh: {el.attributes.Kasus_Semb} <br />
+                    Meninggal: {el.attributes.Kasus_Meni} <br />
+                  </Popup>
+                </Marker>
+              ) : el.attributes.Kasus_Posi > 10000 ? (
+                <Marker
+                  key={i}
+                  position={[el.geometry.y, el.geometry.x]}
+                  icon={yellowIcon}
+                >
+                  <Popup>
+                    Provinsi: {el.attributes.Provinsi}. <br />
+                    Positif: {el.attributes.Kasus_Posi} <br />
+                    Sembuh: {el.attributes.Kasus_Semb} <br />
+                    Meninggal: {el.attributes.Kasus_Meni} <br />
+                  </Popup>
+                </Marker>
+              ) : (
+                <Marker
+                  key={i}
+                  position={[el.geometry.y, el.geometry.x]}
+                  icon={greenIcon}
+                >
+                  <Popup>
+                    Provinsi: {el.attributes.Provinsi}. <br />
+                    Positif: {el.attributes.Kasus_Posi} <br />
+                    Sembuh: {el.attributes.Kasus_Semb} <br />
+                    Meninggal: {el.attributes.Kasus_Meni} <br />
+                  </Popup>
+                </Marker>
+              )),
+            };
+          })}
+        </MapContainer>
       </IonContent>
     </IonPage>
   );

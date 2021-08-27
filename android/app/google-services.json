@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:908773404933:android:9e0e7094f9d083cc0b476c",
         "android_client_info": {
-          "package_name": "com.liu.notice"
+          "package_name": "io.ionic.starter"
         }
       },
       "oauth_client": [

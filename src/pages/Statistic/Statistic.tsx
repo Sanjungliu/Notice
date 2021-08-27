@@ -1,53 +1,35 @@
 import {
-  IonButton,
   IonCol,
   IonContent,
-  IonHeader,
-  IonInput,
   IonItem,
   IonLabel,
   IonPage,
   IonRow,
-  IonSelect,
-  IonSelectOption,
-  IonText,
   IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 
-// com.liu.notice
-import firebase from "firebase/app";
-import { firestore } from "../../firebase";
-import "firebase/firestore";
-import "firebase/auth";
-
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 
 import "./Statistic.css";
-import {
-  fetchAPI,
-  fetchCases,
-  setAPI,
-  setCase,
-  setUser,
-} from "../../store/action";
-const schedule = require("node-schedule");
+import { fetchAPI, fetchCases } from "../../store/action";
+import back from "../../asset/back.png";
 
 const Statistic: React.FC = () => {
-  const user = useSelector((state: RootState) => state.user);
   const cases = useSelector((state: RootState) => state.case);
   const dataAPI = useSelector((state: RootState) => state.API);
   const history = useHistory();
   const dispatch = useDispatch();
 
+  // fetch cases data created by all user and API data from COVID-19 3rd API before render the component
   useEffect(() => {
     dispatch(fetchAPI());
     dispatch(fetchCases());
   }, []);
 
+  // combine cases data created by all user and COVID data from 3rd API
   useEffect(() => {
     for (let i = 0; i < dataAPI.length; i++) {
       for (let j = 0; j < cases.length; j++) {
@@ -60,71 +42,67 @@ const Statistic: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen>
-        <section className="dashboard-admin-section">
-          <IonItem lines="none">
-            <IonTitle className="dashboard-admin-title">
-              COVID 19 Statistic
-            </IonTitle>
-          </IonItem>
-          <IonItem lines="none">
-            <IonButton
-              onClick={() => history.push("/dashboard-admin")}
-              className="ion-margin"
-            >
-              Back to Dashboard
-            </IonButton>
-          </IonItem>
-          <IonRow style={{ borderBottom: "groove" }}>
-            <IonCol col-4>
-              <IonLabel>No</IonLabel>
-            </IonCol>
-            <IonCol col-4>
-              <IonLabel>Provinsi</IonLabel>
-            </IonCol>
-            <IonCol col-4>
-              <IonLabel>Positif</IonLabel>
-            </IonCol>
-            <IonCol col-4>
-              <IonLabel>Sembuh</IonLabel>
-            </IonCol>
-            <IonCol col-4>
-              <IonLabel>Meninggal</IonLabel>
-            </IonCol>
-          </IonRow>
+      <IonContent className="table" fullscreen>
+        <img
+          onClick={() => history.push("/dashboard")}
+          className="back-button"
+          src={back}
+        />
+        <IonItem lines="none">
+          <IonTitle className="statistic-title">COVID 19 Statistic</IonTitle>
+        </IonItem>
 
-          {dataAPI.map((el: any, i: any) => {
-            return (
-              <div key={i}>
-                <IonRow style={{ borderBottom: "groove" }}>
-                  <IonCol col-4>
-                    <IonLabel>{i + 1}</IonLabel>
-                  </IonCol>
-                  <IonCol col-4>
-                    <IonLabel>{el.attributes.Provinsi}</IonLabel>
-                  </IonCol>
-                  <IonCol col-4>
-                    <IonLabel>
-                      {(el.attributes.Kasus_Posi / 1000).toFixed(3)}
-                    </IonLabel>
-                  </IonCol>
-                  <IonCol col-4>
-                    <IonLabel>
-                      {(el.attributes.Kasus_Semb / 1000).toFixed(3)}
-                    </IonLabel>
-                  </IonCol>
-                  <IonCol col-4>
-                    <IonLabel>
-                      {el.attributes.Kasus_Meni > 999
-                        ? (el.attributes.Kasus_Meni / 1000).toFixed(3)
-                        : el.attributes.Kasus_Meni}
-                    </IonLabel>
-                  </IonCol>
-                </IonRow>
-              </div>
-            );
-          })}
-        </section>
+        <IonRow style={{ borderBottom: "groove" }}>
+          <IonCol size="1" col-4>
+            <IonLabel className="statistic-label-no">No</IonLabel>
+          </IonCol>
+          <IonCol size="4" col-4>
+            <IonLabel className="statistic-label-provinsi">Provinsi</IonLabel>
+          </IonCol>
+          <IonCol className="ion-text-end" col-4>
+            <IonLabel className="statistic-label-positif">Positif</IonLabel>
+          </IonCol>
+          <IonCol className="ion-text-end" col-4>
+            <IonLabel className="statistic-label-sembuh">Sembuh</IonLabel>
+          </IonCol>
+          <IonCol className="ion-text-end" col-4>
+            <IonLabel className="statistic-label-meninggal">Meninggal</IonLabel>
+          </IonCol>
+        </IonRow>
+
+        {dataAPI.map((el: any, i: any) => {
+          return (
+            <div key={i}>
+              <IonRow style={{ borderBottom: "groove" }}>
+                <IonCol className="ion-text-center" size="1" col-2>
+                  <IonLabel className="no">{i + 1}</IonLabel>
+                </IonCol>
+                <IonCol size="4" col-4>
+                  <IonLabel className="provinsi">
+                    {el.attributes.Provinsi}
+                  </IonLabel>
+                </IonCol>
+                <IonCol className="ion-text-end" col-4>
+                  <IonLabel className="positif">
+                    {(el.attributes.Kasus_Posi / 1000).toFixed(3)}
+                  </IonLabel>
+                </IonCol>
+                <IonCol className="ion-text-end" col-4>
+                  <IonLabel className="sembuh">
+                    {(el.attributes.Kasus_Semb / 1000).toFixed(3)}
+                  </IonLabel>
+                </IonCol>
+                <IonCol className="ion-text-end" col-4>
+                  <IonLabel className="meninggal">
+                    {el.attributes.Kasus_Meni > 999
+                      ? (el.attributes.Kasus_Meni / 1000).toFixed(3)
+                      : el.attributes.Kasus_Meni}
+                  </IonLabel>
+                </IonCol>
+              </IonRow>
+            </div>
+          );
+        })}
       </IonContent>
     </IonPage>
   );

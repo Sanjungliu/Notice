@@ -1,3 +1,129 @@
 img {
   width: 80px;
 }
+
+.create-case-title {
+  font-size: 30px;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.create-case-subtitle {
+  font-size: 18px;
+  text-align: center;
+}
+
+.create-name {
+  margin-left: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  width: 100%;
+  background-color: white;
+  margin-top: 1rem;
+}
+
+.create-age {
+  margin-left: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  width: 100%;
+  background-color: white;
+  margin-top: 1rem;
+}
+
+.create-address {
+  margin-left: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  width: 100%;
+  background-color: white;
+  margin-top: 1rem;
+}
+
+.create-gender {
+  margin-left: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  width: 100%;
+  background-color: white;
+  margin-top: 1rem;
+}
+
+.create-photo {
+  margin-left: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  background-color: white;
+  height: 3rem;
+  margin-top: 1rem;
+  text-align: center;
+  width: 1500%;
+}
+
+#chosen-image {
+  border-radius: 4rem;
+  margin-top: 1.3rem;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin-left: 1rem;
+  border-style: solid;
+  border-width: 1px;
+  border-color: thistle;
+  border-radius: 2rem;
+  background-color: rgb(68, 66, 214);
+  height: 3rem;
+  margin-top: 1rem;
+  text-align: center;
+  margin-right: 5rem;
+  width: 25%;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.create-button {
+  margin: auto;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 120%;
+}
+
+.create-dashboard {
+  margin: auto;
+  width: 95%;
+  border-radius: 2rem;
+  height: 3rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 120%;
+}
+
+.write-div {
+  display: flex;
+}
+
+.write {
+  margin: auto;
+  width: 50%;
+}
