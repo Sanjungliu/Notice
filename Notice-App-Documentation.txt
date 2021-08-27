@@ -2,6 +2,13 @@ Notice Application Documentation
 
 Notice is an application to reporting the COVID-19 cases in Indonesia.
 
+# Try the App
+
+    - Clone this repo to your machine
+    - cd to the folder
+    - run npm install
+    - run ionic serve
+
 # Type of User
  1. User
     An User have to create an account first before create any report.
